@@ -45,7 +45,7 @@ class AccountServiceImplTest {
     }
 
     @Test
-    void createNotNew() throws Exception { ;
+    void createNotNew() throws Exception {
         final Account newAccount = new Account(sourceId, BigDecimal.valueOf(100));
         assertThrows(AlreadyExistsException.class, () ->
             service.create(newAccount));

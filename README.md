@@ -29,3 +29,154 @@ a pre-installed container/server).
 1. Run `mvn clean install`
 2. Go to `target` and run there `java -jar moneyTransfer-1.0.0-shaded`. 
 3. The application is ready for usage on url `http://localhost:4567/`.
+
+## API
+## Indices
+
+* [Default](#default)
+
+  * [Add transfer](#1-add-transfer)
+  * [Get transfer by id](#2-get-transfer-by-id)
+  * [Get list of transfers](#3-get-list-of-transfers)
+  * [Delete account](#4-delete-account)
+  * [Add account](#5-add-account)
+  * [Get account by id](#6-get-account-by-id)
+  * [Get list of accounts](#7-get-list-of-accounts)
+
+
+--------
+
+
+## Default
+
+
+
+### 1. Add transfer
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: 
+URL: {{host}}/transfers
+```
+
+
+
+### 2. Get transfer by id
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{host}}/transfers/1
+```
+
+
+
+### 3. Get list of transfers
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{host}}/transfers
+```
+
+
+
+### 4. Delete account
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: RAW
+URL: {{host}}/accounts/1
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| Content-Type | application/json |  |
+
+
+
+***Body:***
+
+```js        
+{
+	"value":1000
+}
+```
+
+
+
+### 5. Add account
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{host}}/accounts
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| Content-Type | application/json |  |
+
+
+
+***Body:***
+
+```js        
+{
+	"value":1000
+}
+```
+
+
+
+### 6. Get account by id
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{host}}/accounts/1
+```
+
+
+
+### 7. Get list of accounts
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{host}}/accounts
+```

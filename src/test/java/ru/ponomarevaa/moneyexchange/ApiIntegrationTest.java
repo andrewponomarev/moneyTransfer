@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ApiIntegrationTest {
 
-    static final int DEFAULT_REST_PORT = 4567;
+    private static final int DEFAULT_REST_PORT = 4567;
 
     private HttpClient httpClient;
     private static TransferApp app;
@@ -52,42 +52,42 @@ public class ApiIntegrationTest {
     }
 
     @Test
-    public void transfer_EmptyAmount() throws Exception {
+     void transferEmptyAmount() throws Exception {
         transferFixture(sourceId.toString(), destinationId.toString(), "", HttpStatus.BAD_REQUEST_400);
     }
 
     @Test
-    public void transfer_NotNumAmount() throws Exception {
+    void transferNotNumAmount() throws Exception {
         transferFixture(sourceId.toString(), destinationId.toString(), "k", HttpStatus.BAD_REQUEST_400);
     }
 
     @Test
-    public void transfer_EmptySource() throws Exception {
+    void transferEmptySource() throws Exception {
         transferFixture("",  destinationId.toString(), "100", HttpStatus.BAD_REQUEST_400);
     }
 
     @Test
-    public void transfer_NotNumSource() throws Exception {
+    void transferNotNumSource() throws Exception {
         transferFixture("d",  destinationId.toString(), "100", HttpStatus.BAD_REQUEST_400);
     }
 
     @Test
-    public void transfer_EmptyDestination() throws Exception {
+    void transferEmptyDestination() throws Exception {
         transferFixture(sourceId.toString(),  "", "100", HttpStatus.BAD_REQUEST_400);
     }
 
     @Test
-    public void transfer_NotNumDestination() throws Exception {
+    void transferNotNumDestination() throws Exception {
         transferFixture(sourceId.toString(),  "d", "100", HttpStatus.BAD_REQUEST_400);
     }
 
     @Test
-    public void transfer_SameFromToAccount() throws Exception {
+    void transferSameFromToAccount() throws Exception {
         transferFixture(sourceId.toString(), sourceId.toString(), "111", HttpStatus.BAD_REQUEST_400);
     }
 
     @Test
-    public void transfer_OK() throws Exception {
+    void transferOK() throws Exception {
         transferFixture(sourceId.toString(), destinationId.toString(), "100", HttpStatus.OK_200);
         // Then
         assertEquals(BigDecimal.valueOf(1900L), accountService.get(sourceId).getAmount());
@@ -95,7 +95,7 @@ public class ApiIntegrationTest {
     }
 
     @Test
-    public void transfer_ConcurrencyOK() throws Exception {
+    void transferConcurrencyOK() throws Exception {
         Assertions.assertTimeout(Duration.ofMillis(6000), () -> {
             // Given
             final int transactionsNum = 10;

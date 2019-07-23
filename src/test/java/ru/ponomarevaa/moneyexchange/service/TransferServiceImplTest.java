@@ -95,7 +95,7 @@ class TransferServiceImplTest {
 
     @Test
     void createTheSameSourceAndDestinationId() throws Exception {
-        final Transfer newTransfer = new Transfer( 1,1,BigDecimal.valueOf(100.0));
+        final Transfer newTransfer = new Transfer( 1,1,BigDecimal.valueOf(100));
         assertThrows(IllegalArgumentException.class, () ->
                 service.create(newTransfer));
     }
@@ -105,7 +105,7 @@ class TransferServiceImplTest {
         final Transfer newTransfer = new Transfer(
                 accountService.getAll().get(0).getId(),
                 accountService.getAll().get(1).getId(),
-                new BigDecimal(1000.0));;
+                new BigDecimal(1000));
         assertThrows(NotEnoughMoneyException.class, () ->
                 service.create(newTransfer));
     }

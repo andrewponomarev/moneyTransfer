@@ -1,6 +1,5 @@
 package ru.ponomarevaa.moneyexchange.model;
 
-import java.beans.BeanInfo;
 import java.math.BigDecimal;
 
 public class Transfer extends AbstractBaseEntity {
