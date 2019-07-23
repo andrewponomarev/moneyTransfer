@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ba761e412c30452383862d1f477cb5d8)](https://www.codacy.com/app/andrewponomarev/moneyTransfer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=andrewponomarev/moneyTransfer&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/andrewponomarev/moneyTransfer.svg?branch=master)](https://travis-ci.org/andrewponomarev/moneyTransfer)
 # [Revolut Backend Test](https://drive.google.com/file/d/1Rhk07_MT5WP_5f-lF0LxkJKt5pPM8SKd/view)
 Design and implement a RESTful API (including data model and the backing implementation)
