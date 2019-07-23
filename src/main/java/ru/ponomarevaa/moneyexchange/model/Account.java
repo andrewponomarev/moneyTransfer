@@ -25,18 +25,6 @@ public class Account extends AbstractBaseEntity {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public void widrawal(BigDecimal amount) {
-        this.amount = this.amount.subtract(amount);
-    }
-
-    public void add(BigDecimal amount) {
-        this.amount = this.amount.add(amount);
-    }
-
     @Override
     public String toString() {
         return "Account{" +
