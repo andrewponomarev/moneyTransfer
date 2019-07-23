@@ -1,7 +1,6 @@
 package ru.ponomarevaa.moneyexchange.util;
 
 import com.google.gson.Gson;
-import ru.ponomarevaa.moneyexchange.model.AbstractBaseEntity;
 
 public class GsonUtil {
 

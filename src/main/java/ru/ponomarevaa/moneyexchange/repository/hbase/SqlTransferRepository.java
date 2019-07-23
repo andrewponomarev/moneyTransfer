@@ -7,11 +7,12 @@ import ru.ponomarevaa.moneyexchange.repository.TransferRepository;
 import ru.ponomarevaa.moneyexchange.repository.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import static ru.ponomarevaa.moneyexchange.repository.hbase.SqlAccountRepository.GET_ACCOUNT;
 import static ru.ponomarevaa.moneyexchange.util.TransferValidationUtil.checkBalanceIsEnoughForTransfer;
-import static ru.ponomarevaa.moneyexchange.util.TransferValidationUtil.checkIdTheSame;
 
 public class SqlTransferRepository implements TransferRepository {
 

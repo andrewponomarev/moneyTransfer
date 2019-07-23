@@ -2,7 +2,6 @@ package ru.ponomarevaa.moneyexchange.service;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.ponomarevaa.moneyexchange.TransferModule;
@@ -10,10 +9,10 @@ import ru.ponomarevaa.moneyexchange.exception.AlreadyExistsException;
 import ru.ponomarevaa.moneyexchange.exception.NotFoundException;
 import ru.ponomarevaa.moneyexchange.model.Account;
 
-
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.ponomarevaa.moneyexchange.TestData.ACCOUNT_1;
 import static ru.ponomarevaa.moneyexchange.TestData.ACCOUNT_2;
 
@@ -39,7 +38,7 @@ class AccountServiceImplTest {
 
     @Test
     void create() throws Exception {
-        final Account newAccount = new Account(BigDecimal.valueOf(100.0));
+        final Account newAccount = new Account(BigDecimal.valueOf(100));
         final Account createdAccount = service.create(new Account(newAccount));
 
         assertEquals(0, newAccount.getAmount().compareTo(createdAccount.getAmount()));
@@ -47,7 +46,7 @@ class AccountServiceImplTest {
 
     @Test
     void createNotNew() throws Exception { ;
-        final Account newAccount = new Account(sourceId, BigDecimal.valueOf(100.0));
+        final Account newAccount = new Account(sourceId, BigDecimal.valueOf(100));
         assertThrows(AlreadyExistsException.class, () ->
             service.create(newAccount));
     }

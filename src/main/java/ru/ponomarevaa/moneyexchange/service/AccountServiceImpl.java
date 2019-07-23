@@ -8,7 +8,6 @@ import spark.utils.Assert;
 
 import java.util.List;
 
-import static ru.ponomarevaa.moneyexchange.util.ValidationUtil.assureIdConsistent;
 import static ru.ponomarevaa.moneyexchange.util.ValidationUtil.checkNew;
 import static ru.ponomarevaa.moneyexchange.util.ValidationUtil.checkNotFoundWithId;
 

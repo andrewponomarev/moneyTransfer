@@ -11,10 +11,9 @@ import ru.ponomarevaa.moneyexchange.model.Transfer;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static ru.ponomarevaa.moneyexchange.TestData.ACCOUNT_1;
-import static ru.ponomarevaa.moneyexchange.TestData.ACCOUNT_2;
-import static ru.ponomarevaa.moneyexchange.TestData.TRANSFER;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static ru.ponomarevaa.moneyexchange.TestData.*;
 
 
 class TransferServiceImplTest {
@@ -82,14 +81,14 @@ class TransferServiceImplTest {
     void createNotNew() throws Exception {
 
 
-        final Transfer newTransfer = new Transfer(1, 1,2, BigDecimal.valueOf(100.0));
+        final Transfer newTransfer = new Transfer(1, 1,2, BigDecimal.valueOf(100));
         assertThrows(IllegalArgumentException.class, () ->
                 service.create(newTransfer));
     }
 
     @Test
     void createWithNegativeAmount() throws Exception {
-        final Transfer newTransfer = new Transfer(1,2,BigDecimal.valueOf(-100.0));
+        final Transfer newTransfer = new Transfer(1,2,BigDecimal.valueOf(-100));
         assertThrows(IllegalArgumentException.class, () ->
                 service.create(newTransfer));
     }

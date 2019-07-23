@@ -1,6 +1,5 @@
 package ru.ponomarevaa.moneyexchange;
 
-import com.google.gson.Gson;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.eclipse.jetty.http.HttpStatus;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.ponomarevaa.moneyexchange.model.Account;
-import ru.ponomarevaa.moneyexchange.model.Transfer;
 import ru.ponomarevaa.moneyexchange.service.AccountService;
 
 import java.io.IOException;
@@ -18,7 +16,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.sql.SQLOutput;
 import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -99,7 +96,7 @@ public class ApiIntegrationTest {
 
     @Test
     public void transfer_ConcurrencyOK() throws Exception {
-        Assertions.assertTimeout(Duration.ofMillis(60000), () -> {
+        Assertions.assertTimeout(Duration.ofMillis(6000), () -> {
             // Given
             final int transactionsNum = 10;
             final Integer accountId1 = accountService.create(new Account(BigDecimal.TEN)).getId();

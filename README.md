@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/andrewponomarev/moneyTransfer.svg?branch=master)](https://travis-ci.org/andrewponomarev/moneyTransfer)
 # [Revolut Backend Test](https://drive.google.com/file/d/1Rhk07_MT5WP_5f-lF0LxkJKt5pPM8SKd/view)
 Design and implement a RESTful API (including data model and the backing implementation)
 for money transfers between accounts.

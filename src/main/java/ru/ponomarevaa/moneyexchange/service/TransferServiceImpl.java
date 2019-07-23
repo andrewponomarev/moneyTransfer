@@ -8,11 +8,8 @@ import ru.ponomarevaa.moneyexchange.repository.AccountRepository;
 import ru.ponomarevaa.moneyexchange.repository.TransferRepository;
 import spark.utils.Assert;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
-import static ru.ponomarevaa.moneyexchange.util.TransferValidationUtil.checkBalanceIsEnoughForTransfer;
 import static ru.ponomarevaa.moneyexchange.util.TransferValidationUtil.checkNegativeAmount;
 import static ru.ponomarevaa.moneyexchange.util.TransferValidationUtil.checkTheSameSourceAndDestinationId;
 import static ru.ponomarevaa.moneyexchange.util.ValidationUtil.checkNew;

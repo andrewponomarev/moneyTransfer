@@ -2,7 +2,6 @@ package ru.ponomarevaa.moneyexchange.service;
 
 import ru.ponomarevaa.moneyexchange.exception.NotFoundException;
 import ru.ponomarevaa.moneyexchange.model.Account;
-import ru.ponomarevaa.moneyexchange.repository.AccountRepository;
 
 import java.util.List;
 

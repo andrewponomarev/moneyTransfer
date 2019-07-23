@@ -1,6 +1,5 @@
 package ru.ponomarevaa.moneyexchange.repository;
 
-import ru.ponomarevaa.moneyexchange.model.Account;
 import ru.ponomarevaa.moneyexchange.model.Transfer;
 
 import java.util.List;
