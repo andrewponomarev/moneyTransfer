@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TransferRepository {
 
-    Transfer save(Transfer transfer, Account source, Account destination);
+    Transfer save(Transfer transfer);
 
     // null if not found
     Transfer get(int id);

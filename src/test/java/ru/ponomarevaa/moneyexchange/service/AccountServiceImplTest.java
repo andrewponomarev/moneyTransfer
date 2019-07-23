@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.ponomarevaa.moneyexchange.TransferModule;
+import ru.ponomarevaa.moneyexchange.exception.AlreadyExistsException;
 import ru.ponomarevaa.moneyexchange.exception.NotFoundException;
 import ru.ponomarevaa.moneyexchange.model.Account;
 
@@ -19,8 +20,10 @@ import static ru.ponomarevaa.moneyexchange.TestData.ACCOUNT_2;
 class AccountServiceImplTest {
 
     protected AccountService service;
+    private static Integer sourceId;
+    private static Integer destinationId;
 
-    public AccountServiceImplTest() {
+    AccountServiceImplTest() {
         Injector injector = Guice.createInjector(new TransferModule());
         this.service = injector.getInstance(AccountService.class);
     }
@@ -30,8 +33,8 @@ class AccountServiceImplTest {
         service.clear();
         Account newAccount_1 = new Account(ACCOUNT_1);
         Account newAccount_2 = new Account(ACCOUNT_2);
-        service.create(newAccount_1);
-        service.create(newAccount_2);
+        sourceId = service.create(newAccount_1).getId();
+        destinationId = service.create(newAccount_2).getId();
     }
 
     @Test
@@ -39,52 +42,39 @@ class AccountServiceImplTest {
         final Account newAccount = new Account(BigDecimal.valueOf(100.0));
         final Account createdAccount = service.create(new Account(newAccount));
 
-        assertEquals(newAccount.getAmount(), createdAccount.getAmount());
+        assertEquals(0, newAccount.getAmount().compareTo(createdAccount.getAmount()));
     }
 
     @Test
-    void createNotNew() throws Exception {
-        int id = service.getAll().get(0).getId();
-        final Account newAccount = new Account(id, BigDecimal.valueOf(100.0));
-        assertThrows(IllegalArgumentException.class, () ->
+    void createNotNew() throws Exception { ;
+        final Account newAccount = new Account(sourceId, BigDecimal.valueOf(100.0));
+        assertThrows(AlreadyExistsException.class, () ->
             service.create(newAccount));
     }
 
     @Test
     void delete() throws Exception {
-        int id = service.getAll().get(0).getId();
-        service.delete(id);
+        service.delete(sourceId);
         assertEquals(1, service.getAll().size());
-        assertEquals( ACCOUNT_2.getAmount(), service.getAll().get(0).getAmount());
+        assertEquals(0,  ACCOUNT_2.getAmount().compareTo(service.get(destinationId).getAmount()));
     }
 
     @Test
     void deletedNotFound() throws Exception {
-        int id = service.getAll().get(0).getId();
         assertThrows(NotFoundException.class, () ->
-            service.delete(id+2));
+            service.delete(sourceId+2));
     }
 
     @Test
     void get() throws Exception {
-        int id = service.getAll().get(0).getId();
-        Account account = service.get(id);
-        assertEquals(account.getAmount(), ACCOUNT_1.getAmount());
+        Account account = service.get(sourceId);
+        assertEquals(0, account.getAmount().compareTo(ACCOUNT_1.getAmount()));
     }
 
     @Test
     void getNotFound() throws Exception {
-        int id = service.getAll().get(0).getId();
         assertThrows(NotFoundException.class, () ->
-                service.get(id+2));
-    }
-
-    @Test
-    void update() throws Exception {
-        int id = service.getAll().get(0).getId();
-        Account account = new Account(id, BigDecimal.valueOf(300.0));
-        service.update(account);
-        assertEquals(account.getAmount(), service.get(id).getAmount());
+                service.get(sourceId+2));
     }
 
 }

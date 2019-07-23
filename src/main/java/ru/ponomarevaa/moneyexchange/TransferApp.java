@@ -31,7 +31,10 @@ public class TransferApp {
     private static Logger log = LoggerFactory.getLogger(TransferApp.class);
 
     public static void main(String[] args) {
+        new TransferApp().start();
+    }
 
+    public void start() {
         Injector injector = Guice.createInjector(new TransferModule());
 
         before("/*", (q, a) -> log.info("Received api call"));

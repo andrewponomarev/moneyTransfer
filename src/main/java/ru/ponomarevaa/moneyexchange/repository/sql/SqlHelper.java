@@ -1,4 +1,4 @@
-package ru.ponomarevaa.moneyexchange.repository.hbase;
+package ru.ponomarevaa.moneyexchange.repository.sql;
 
 
 import com.google.inject.Inject;

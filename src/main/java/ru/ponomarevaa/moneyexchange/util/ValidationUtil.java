@@ -1,5 +1,6 @@
 package ru.ponomarevaa.moneyexchange.util;
 
+import ru.ponomarevaa.moneyexchange.exception.AlreadyExistsException;
 import ru.ponomarevaa.moneyexchange.exception.NotFoundException;
 import ru.ponomarevaa.moneyexchange.model.AbstractBaseEntity;
 
@@ -37,7 +38,7 @@ public class ValidationUtil {
 
     public static void checkNew(AbstractBaseEntity entity) {
         if (!entity.isNew()) {
-            throw new IllegalArgumentException(entity + " must be new (id=null)");
+            throw new AlreadyExistsException(entity + " must be new (id=null)");
         }
     }
 

@@ -5,8 +5,6 @@ import com.google.inject.Singleton;
 import ru.ponomarevaa.moneyexchange.repository.AccountRepository;
 import ru.ponomarevaa.moneyexchange.repository.hbase.SqlAccountRepository;
 import ru.ponomarevaa.moneyexchange.repository.hbase.SqlTransferRepository;
-import ru.ponomarevaa.moneyexchange.repository.inmemory.InMemoryAccountRepository;
-import ru.ponomarevaa.moneyexchange.repository.inmemory.InMemoryTransferRepository;
 import ru.ponomarevaa.moneyexchange.repository.TransferRepository;
 import ru.ponomarevaa.moneyexchange.service.AccountService;
 import ru.ponomarevaa.moneyexchange.service.AccountServiceImpl;

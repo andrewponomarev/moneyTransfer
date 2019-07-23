@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface AccountRepository {
 
-    // null if not found
     Account save(Account acct);
 
     // false if not found

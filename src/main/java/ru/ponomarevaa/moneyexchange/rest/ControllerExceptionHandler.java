@@ -1,6 +1,8 @@
 package ru.ponomarevaa.moneyexchange.rest;
 
 import com.google.gson.JsonSyntaxException;
+import ru.ponomarevaa.moneyexchange.exception.AlreadyExistsException;
+import ru.ponomarevaa.moneyexchange.exception.NotEnoughMoneyException;
 import ru.ponomarevaa.moneyexchange.exception.NotFoundException;
 
 import static ru.ponomarevaa.moneyexchange.util.GsonUtil.errorResponse;
@@ -17,7 +19,15 @@ public class ControllerExceptionHandler {
             rs.status(400);
             rs.body(errorResponse(e.getMessage()));
         });
+        exception(NotEnoughMoneyException.class, (e, rq, rs) -> {
+            rs.status(400);
+            rs.body(errorResponse(e.getMessage()));
+        });
         exception(NotFoundException.class, (e, rq, rs) -> {
+            rs.status(404);
+            rs.body(errorResponse(e.getMessage()));
+        });
+        exception(AlreadyExistsException.class, (e, rq, rs) -> {
             rs.status(404);
             rs.body(errorResponse(e.getMessage()));
         });

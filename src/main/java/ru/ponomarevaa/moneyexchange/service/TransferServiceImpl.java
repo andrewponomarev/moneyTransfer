@@ -53,9 +53,7 @@ public class TransferServiceImpl implements TransferService {
         Assert.notNull(source, "source must not be null");
         Assert.notNull(destination, "destination must not be null");
 
-        checkBalanceIsEnoughForTransfer(source, transfer);
-
-        return repository.save(transfer, source, destination);
+        return repository.save(transfer);
     }
 
     @Override

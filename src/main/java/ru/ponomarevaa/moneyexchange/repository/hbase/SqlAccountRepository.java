@@ -1,9 +1,9 @@
 package ru.ponomarevaa.moneyexchange.repository.hbase;
 
 import com.google.inject.Inject;
-import ru.ponomarevaa.moneyexchange.exception.StorageException;
 import ru.ponomarevaa.moneyexchange.model.Account;
 import ru.ponomarevaa.moneyexchange.repository.AccountRepository;
+import ru.ponomarevaa.moneyexchange.repository.sql.SqlHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,6 +15,8 @@ public class SqlAccountRepository implements AccountRepository {
 
     public static final String INSERT_ACCOUNT = "INSERT INTO accounts (amount) VALUES (?)";
     public static final String UPDATE_ACCOUNT = "UPDATE accounts SET amount=? WHERE id=?";
+    public static final String SUBTRACT_ACCOUNT = "UPDATE accounts SET amount=amount-? WHERE id=?";
+    public static final String ADD_ACCOUNT = "UPDATE accounts SET amount=amount+? WHERE id=?";
     public static final String DELETE_ACCOUNT = "DELETE FROM accounts WHERE id=?";
     public static final String GET_ACCOUNT = "SELECT * FROM accounts WHERE id=?";
     public static final String LIST_ACCOUNTS = "SELECT * FROM accounts";

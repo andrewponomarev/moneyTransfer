@@ -23,7 +23,7 @@ class TransferServiceImplTest {
 
     protected AccountService accountService;
 
-    public TransferServiceImplTest() {
+    TransferServiceImplTest() {
         Injector injector = Guice.createInjector(new TransferModule());
         this.service = injector.getInstance(TransferService.class);
         this.accountService = injector.getInstance(AccountService.class);

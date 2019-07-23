@@ -4,10 +4,13 @@ import com.google.inject.Inject;
 import ru.ponomarevaa.moneyexchange.model.Account;
 import ru.ponomarevaa.moneyexchange.model.Transfer;
 import ru.ponomarevaa.moneyexchange.repository.TransferRepository;
+import ru.ponomarevaa.moneyexchange.repository.sql.SqlHelper;
 
 import java.sql.*;
 import java.util.*;
 
+import static ru.ponomarevaa.moneyexchange.repository.hbase.SqlAccountRepository.GET_ACCOUNT;
+import static ru.ponomarevaa.moneyexchange.util.TransferValidationUtil.checkBalanceIsEnoughForTransfer;
 import static ru.ponomarevaa.moneyexchange.util.TransferValidationUtil.checkIdTheSame;
 
 public class SqlTransferRepository implements TransferRepository {
@@ -32,12 +35,11 @@ public class SqlTransferRepository implements TransferRepository {
     }
 
     @Override
-    public Transfer save(Transfer transfer, Account source, Account destination) {
+    public Transfer save(Transfer transfer) {
         Objects.requireNonNull(transfer, "Entry must not be null");
         if (!transfer.isNew()) {
             throw new IllegalArgumentException("");
         }
-        checkIdTheSame(transfer, source, destination);
         return sqlHelper.transactionalExecute( (conn) -> {
             try (PreparedStatement ps = conn.prepareStatement(INSERT_TRANSFER, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1, transfer.getSourceId());
@@ -49,20 +51,38 @@ public class SqlTransferRepository implements TransferRepository {
                     int id = psGeneratedKeys.getInt("id");
                     transfer.setId(id);
                 }
-                source.widrawal(transfer.getAmount());
-                destination.add(transfer.getAmount());
-                updateAccount(conn, source);
-                updateAccount(conn, destination);
+                checkBalanceIsEnoughForTransfer(getAccount(conn, transfer), transfer);
+                subtractAccount(conn, transfer);
+                addAccount(conn, transfer);
             }
             return transfer;
         });
     }
 
-    private void updateAccount(Connection conn, Account source) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement(SqlAccountRepository.UPDATE_ACCOUNT)) {
-            ps.setBigDecimal(1, source.getAmount());
-            ps.setInt(2, source.getId());
+    private void subtractAccount(Connection conn, Transfer transfer) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement(SqlAccountRepository.SUBTRACT_ACCOUNT)) {
+            ps.setBigDecimal(1, transfer.getAmount());
+            ps.setInt(2, transfer.getSourceId());
             ps.executeUpdate();
+        }
+    }
+
+    private void addAccount(Connection conn, Transfer transfer) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement(SqlAccountRepository.ADD_ACCOUNT)) {
+            ps.setBigDecimal(1, transfer.getAmount());
+            ps.setInt(2, transfer.getDestinationId());
+            ps.executeUpdate();
+        }
+    }
+
+    private Account getAccount(Connection conn, Transfer transfer) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement(GET_ACCOUNT)) {
+            ps.setInt(1, transfer.getSourceId());
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+            return new Account(transfer.getSourceId(), rs.getBigDecimal("amount"));
         }
     }
 
